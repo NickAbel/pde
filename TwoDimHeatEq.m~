@@ -1,5 +1,0 @@
-function[A] = TwoDimHeatEq(s,m,A)
-n=size(F)
-for (i=2:n(1)-1)
-    for (j=2:n(2)-1)
-        A(i,j)=s*[A(i+1,j
