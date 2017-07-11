@@ -8,8 +8,8 @@ function[A] = OneDimHeatEq(I,B0,BL,S,N)
 A=zeros(length(I),1);
 A(1)=B0;
 A(length(A))=BL;
-for (n=1:N)
-  for (J=2:(length(A)-1))
+for n=1:N
+  for J=2:(length(A)-1)
     A(J)=I(J)+S*(I(J+1)+I(J-1)-2*I(J));
   end
   I=A;
