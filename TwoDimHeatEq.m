@@ -8,11 +8,15 @@ function[A] = TwoDimHeatEq(s,A,m)
 % m: Number of time-steps to perform.
 
 n=size(A);
-
-for l=1:m
-    for i=2:n(1)-1
-        for j=2:n(2)-1
-            A(i,j)=s*(A(i+1,j)+A(i-1,j)+A(i,j+1)+A(i,j-1));
-        end
+B=A;
+for i=1:m
+  for j=2:n(1)-1
+    for l=2:n(2)-1
+      B(j,l)=s*(A(j+1,l)+A(j-1,l)+A(j,l+1)+A(j,l-1))+(1-4*s)*A(j,l);
     end
+  end
+  A=B;
+  imagesc(A);
+  pause(.1);
+  drawnow();
 end

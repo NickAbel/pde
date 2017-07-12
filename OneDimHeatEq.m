@@ -1,17 +1,20 @@
-function[A] = OneDimHeatEq(I,B0,BL,S,N)
+function[v] = OneDimHeatEq(u,T,dx,k)
 
-% This function takes as its input a 1xN vector I, representing the 1-D 
-% rod at its initial condition. B0 and BL are numbers which represent 
-% boundary conditions. S is the constant k*dt/(dx)^2, and N is the total 
-% number of time steps. The vector A is returned, representing the 1-D rod 
-% at time step N.
+% 1-D heat equation using forward time difference, centered space difference.
+% Stability analysis reveals the scheme is stable if s=k*dt/(dx)^2<=1/2.
 
-A=zeros(length(I),1);
-A(1)=B0;
-A(length(A))=BL;
-for n=1:N
-  for J=2:(length(A)-1)
-    A(J)=I(J)+S*(I(J+1)+I(J-1)-2*I(J));
+t=0;
+dt=(dx)^2/2*k;
+s=k*dt/(dx)^2;
+v=zeros(length(u),1);
+
+while (t<T)
+  t+=dt;
+  for j=2:(length(u)-1)
+    v(j)=u(j)+s*(u(j+1)+u(j-1)-2*u(j));
   end
-  I=A;
+  u=v;
+  plot(v);
+  pause(.2);
+  drawnow();
 end
