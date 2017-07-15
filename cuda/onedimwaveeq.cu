@@ -7,9 +7,14 @@ __global__ void WaveEq(float *d_mm1, float *d_m, float *d_mp1, float s,
 		       float T, float dt, float cfl)
 {
   int i=blockIdx.x*blockDim.x+threadIdx.x;
+  int N=blockDim.x-1;
   d_m[i]=d_mp1[i];
   float t=0.0;
   while (t < T) {
+    // Uncomment two lines below for absorbing boundary conditions
+    // d_mp1[0]=d_m[1]+((cfl-1)/(cfl+1))*(d_mp1[1]-d_m[0]);
+    // d_mp1[N]=d_m[N-1]+((cfl-1)/(cfl+1))*(d_mp1[N-1]-d_m[N]);
+    
     t=dt+t;
     d_mm1[i]=d_m[i];
     d_m[i]=d_mp1[i];
@@ -17,6 +22,9 @@ __global__ void WaveEq(float *d_mm1, float *d_m, float *d_mp1, float s,
     if (i>0 && i<(blockDim.x-1)) {
       d_mp1[i]=2*d_m[i]-d_mm1[i]+s*(d_m[i-1]-2*d_m[i]+d_m[i+1]);
     }
+
+    // Uncomment line below to include source on string
+    // d_m[int(N/2)]=0.1;
   }
 }
 

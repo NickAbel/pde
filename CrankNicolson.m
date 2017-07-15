@@ -26,4 +26,7 @@ for i=1:m
   b=s*(A\b);
   b(1)=0;
   b(n-1)=0;
+  plot(b);
+  pause(.2);
+  drawnow();
 end

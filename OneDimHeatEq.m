@@ -9,7 +9,7 @@ s=k*dt/(dx)^2;
 v=zeros(length(u),1);
 
 while (t<T)
-  t+=dt;
+  t=dt+t;
   for j=2:(length(u)-1)
     v(j)=u(j)+s*(u(j+1)+u(j-1)-2*u(j));
   end

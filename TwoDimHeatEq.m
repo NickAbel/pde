@@ -7,6 +7,7 @@ function[A] = TwoDimHeatEq(s,A,m)
 % A: The initial discretization in the form of a 2D array.
 % m: Number of time-steps to perform.
 
+
 n=size(A);
 B=A;
 for i=1:m
