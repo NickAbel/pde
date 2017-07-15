@@ -35,7 +35,6 @@ int main(int argc, char** argv)
 	cudaMemcpy(d_a,h_a,BYTES,cudaMemcpyHostToDevice);
 
 	//launch the kernel
-	//TODO use the blocks instead of a for loop like some amateur (?)
 	for (int i=0; i<25; i++) {
 		HeatEq<<<1,(n-2)>>>(d_a,d_b,s);
 		cudaMemcpy(d_a,d_b,BYTES,cudaMemcpyDeviceToDevice);
@@ -46,7 +45,7 @@ int main(int argc, char** argv)
 	cudaMemcpy(h_b,d_b,BYTES,cudaMemcpyDeviceToHost);
 	
 	for (int i=0; i<n; i++) {
-		printf("%.5f",h_b[i]);
+		printf("%d \t %.5f",i,h_b[i]);
 		printf("\n");
 	}
 	printf("\n \n");
