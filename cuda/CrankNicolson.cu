@@ -19,7 +19,8 @@ __global__ void FwdReduction(float* d_A, float* d_F)
       printf("%d %d %d\n",index1,index2,i);
       alpha=d_A[n*j+index1]/d_A[n*index1+index1];
       gamma=d_A[n*j+index2]/d_A[n*index2+index2];
-      for (int k=0;k<n;k++) {
+      for (int k=0;k<n;k++) 
+      {
 	d_A[n*j+k]-=(alpha*d_A[n*index1+k]+gamma*d_A[n*index2+k]);
       }
       d_F[j]-=(alpha*d_F[index1]+gamma*d_F[index2]);
